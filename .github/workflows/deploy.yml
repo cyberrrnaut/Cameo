@@ -40,11 +40,11 @@ jobs:
           sudo docker stop cameo || true
           sudo docker rm cameo || true
           sudo docker run -d --name cameo -p 8080:3000 \
-            -e NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} \
-            -e NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} \
-            -e NEXT_PUBLIC_CLERK_SIGN_IN_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }} \
-            -e NEXT_PUBLIC_CLERK_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }} \
-            -e NEXT_PUBLIC_STREAM_API_KEY=${{ secrets.NEXT_PUBLIC_STREAM_API_KEY }} \
-            -e STREAM_SECRET_KEY=${{ secrets.STREAM_SECRET_KEY }} \
-            -e CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} \
+            -e NEXT_PUBLIC_BASE_URL="${{ secrets.NEXT_PUBLIC_BASE_URL }}" \
+            -e NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}" \
+            -e NEXT_PUBLIC_CLERK_SIGN_IN_URL="${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }}" \
+            -e NEXT_PUBLIC_CLERK_SIGN_UP_URL="${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }}" \
+            -e NEXT_PUBLIC_STREAM_API_KEY="${{ secrets.NEXT_PUBLIC_STREAM_API_KEY }}" \
+            -e STREAM_SECRET_KEY="${{ secrets.STREAM_SECRET_KEY }}" \
+            -e CLERK_SECRET_KEY="${{ secrets.CLERK_SECRET_KEY }}" \
             cyberrrnaut/cameo:latest
