@@ -32,9 +32,9 @@ jobs:
     - name: Deploy to EC2
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.SSH_HOST }}  # Assuming you have this secret too
-        username: ${{ secrets.SSH_USERNAME }}  # Assuming you have this secret too
-        key: ${{ secrets.SSH_KEY }}  # Assuming you have this secret too
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
         script: |
           sudo docker pull cyberrrnaut/cameo:latest
           sudo docker stop cameo || true
@@ -46,4 +46,5 @@ jobs:
             -e NEXT_PUBLIC_CLERK_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }} \
             -e NEXT_PUBLIC_STREAM_API_KEY=${{ secrets.NEXT_PUBLIC_STREAM_API_KEY }} \
             -e STREAM_SECRET_KEY=${{ secrets.STREAM_SECRET_KEY }} \
+            -e CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} \
             cyberrrnaut/cameo:latest
