@@ -7,6 +7,7 @@ import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
 import { useToast } from "@/hooks/use-toast"
 import { useRouter } from 'next/navigation';
 import { Textarea } from "@/components/ui/textarea"
+import { Input } from "@/components/ui/input"
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -81,7 +82,7 @@ const[callDetail, setCallDetail]= useState<Call>();
   }
 
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetail?.id}`;
-
+  
   return (
   
     <div className='justify-between grid grid-cols-1 gap-3  md:grid-cols-2 xl:grid-cols-4  pt-10 '>
@@ -90,9 +91,9 @@ const[callDetail, setCallDetail]= useState<Call>();
          <HomeCard className={'  bg-pink-900 shadow-slate-400' } title={'Schedule Meeting'} img={'/icons/join-meeting.svg'} description={'Plan your meeting' }
          handleClick={()=>{setMeetingState('isScheduleMeeting')}} /> 
          <HomeCard className={'  bg-yellow-600 shadow-slate-400' } title={'Join Meeting'} img={'/icons/schedule.svg'} description={'via invitation link'}
-         handleClick={()=>{}} />
+         handleClick={()=>{router.push(`/meeting-recordings`)}} />
           <HomeCard className={' bg-orange-700 shadow-slate-400' } title={'View Recordings'} img={'/icons/recordings.svg'} description={'Meeting recordings'}
-         handleClick={()=>{}} />
+         handleClick={()=>{setMeetingState('isJoiningMeeting')}} />
 
          <ModalCard  isOpen= {meetingState==='isInstantMeeting'} onClose={()=>{setMeetingState(undefined)}}
             title='Create Meeting' className=''  handleClick={createMeeting} buttonText='Create Meeting'
@@ -133,7 +134,15 @@ const[callDetail, setCallDetail]= useState<Call>();
             </ModalCard>
           )
             }
+      <ModalCard  isOpen= {meetingState==='isJoiningMeeting'} onClose={()=>{setMeetingState(undefined)}}
+            title='Join Meeting' className=''  handleClick={()=>{router.push(values.link)}} buttonText='Join Meeting'
+            buttonIcon='' image=''  
+           childrenUp={true} >
+           <Input placeholder='Input the meeting' className=' border-none bg-slate-900'
+           onChange={(e)=>{setValues({...values, link:e.target.value})}}/>
 
+            
+           </ModalCard>
     </div>  
    )
 }
