@@ -90,9 +90,9 @@ const[callDetail, setCallDetail]= useState<Call>();
          handleClick={()=>{setMeetingState('isInstantMeeting')}} /> 
          <HomeCard className={'  bg-pink-900 shadow-slate-400' } title={'Schedule Meeting'} img={'/icons/join-meeting.svg'} description={'Plan your meeting' }
          handleClick={()=>{setMeetingState('isScheduleMeeting')}} /> 
-         <HomeCard className={'  bg-yellow-600 shadow-slate-400' } title={'Join Meeting'} img={'/icons/schedule.svg'} description={'via invitation link'}
+         <HomeCard className={'  bg-yellow-600 shadow-slate-400' } title={'View Recordings'} img={'/icons/schedule.svg'} description={'Meeting recordings'}
          handleClick={()=>{router.push(`/meeting-recordings`)}} />
-          <HomeCard className={' bg-orange-700 shadow-slate-400' } title={'View Recordings'} img={'/icons/recordings.svg'} description={'Meeting recordings'}
+          <HomeCard className={' bg-orange-700 shadow-slate-400' } title={'Join Meeting'} img={'/icons/recordings.svg'} description={'via invitation link'}
          handleClick={()=>{setMeetingState('isJoiningMeeting')}} />
 
          <ModalCard  isOpen= {meetingState==='isInstantMeeting'} onClose={()=>{setMeetingState(undefined)}}
