@@ -1,29 +1,18 @@
 'use client'
 
-import CardListType from '@/components/CardListType';
+import CardListType from '@/components/CardListType'
 import Loader from '@/components/Loader';
 import { useGetCalls } from '@/hooks/useGetCalls';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
 export default function Page() {
+
   const [time, setTime] = useState('');
   const [date, setDate] = useState('');
-  const { upcomingCalls, isLoading } = useGetCalls();
 
-  const todayStart = new Date();
-  todayStart.setHours(0, 0, 0, 0);
-  const todayEnd = new Date();
-  todayEnd.setHours(23, 59, 59, 999);
-
-  const todayCalls = useMemo(() => {
-    return upcomingCalls
-      ? upcomingCalls.filter((call) => {
-          const callTime = new Date(call.state.startsAt);
-          return callTime >= todayStart && callTime <= todayEnd;
-        })
-      : [];
-  }, [upcomingCalls]);
-
+  const {upcomingCalls, isLoading } = useGetCalls();
+  
+  
   useEffect(() => {
     const updateDateTime = () => {
       const now = new Date();
@@ -58,32 +47,28 @@ export default function Page() {
     return () => clearInterval(timer); // Cleanup on unmount
   }, []);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+if(isLoading){
+  return <Loader/>
+}
 
-  return (
-    <section>
-      <div className="w-full h-[300px] shadow-lg bg-hero rounded-md pl-11">
-        <div className="h-full justify-start flex flex-col">
-          <div className="h-full justify-around flex flex-col">
-            {todayCalls.length === 0 ? (
-              <p className="text-2xl">No more Meetings today</p>
-            ) : (
-              <p className="text-2xl">
-                Upcoming Meeting at{' '}
-                {new Date(todayCalls[0].state.startsAt).toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
-              </p>
-            )}
-            <p className="text-7xl font-bold">{time}</p>
-            <p className="text-2xl">{date}</p>
-          </div>
+return (
+  <section>
+    <div className="w-full h-[300px] shadow-lg bg-hero rounded-md pl-11">
+      <div className="h-full justify-start flex flex-col">
+        <div className="h-full justify-around flex flex-col">
+          {upcomingCalls.length === 0 ? (
+            <p className="text-2xl">No upcoming Meetings</p>
+          ) : (
+            <p className="text-2xl">Upcoming Meeting at {upcomingCalls[0].state?.startsAt?.toLocaleString() } </p>
+          )}
+          <p className="text-7xl font-bold">{time}</p>
+          <p className="text-2xl">{date}</p>
         </div>
       </div>
-      <CardListType />
-    </section>
-  );
+    </div>
+    <CardListType />
+  </section>
+);
+
+
 }
