@@ -31,6 +31,7 @@ export default function Navbar() {
             <UserButton  />
 
           </SignedIn>
+        mobile nav 
       <MobileNav/>
       </div>
       
